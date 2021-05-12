@@ -8,9 +8,10 @@ module.exports.run = async (bot, message, args) => {
   const url = "https://api.jikan.moe/v3/top/anime/1/bypopularity";
 
   const voice_channel = message.member.voice.channel;
-  if (!voice_channel) {
+  if(!voice_channel){
     return message.reply("You need to be in a voice channel");
-  }
+
+  }  
 
   const permissions = voice_channel.permissionsFor(bot.user);
 
@@ -51,7 +52,7 @@ module.exports.run = async (bot, message, args) => {
           user.save();
         }
         answered = true;
-        connection.dispatcher.end()
+        connection.dispatcher.end();
         message.channel.send(
           `<@${m.member.id}> **You got the answer and you earned ${points}$**`
         );
@@ -60,11 +61,11 @@ module.exports.run = async (bot, message, args) => {
     collector.on("end", (m) => {
       if (!answered) {
         message.channel.send(`**Timeout the answer was ${anime.title}**`);
-        connection.dispatcher.end()
+        connection.dispatcher.end();
       }
     });
   });
-};
+}
 
 module.exports.config = {
   name: "op",
